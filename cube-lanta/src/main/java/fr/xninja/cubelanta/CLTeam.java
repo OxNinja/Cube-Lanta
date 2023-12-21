@@ -17,19 +17,19 @@ public class CLTeam {
         this.members = new ArrayList<Player>();
     }
 
-    List<Player> getMembers() {
+    public List<Player> getMembers() {
         return this.members;
     }
 
-    void setMembers(List<Player> list) {
+    public void setMembers(List<Player> list) {
         this.members = list;
     }
 
-    void addMember(Player member) {
+    public void addMember(Player member) {
         this.members.add(member);
     }
 
-    void removeMember(Player member) {
+    public void removeMember(Player member) {
         int index = this.members.indexOf(member);
         if(index == -1) {
             System.out.println("Member " + member.getName() + " not found in team " + this.name + " for remove.");
@@ -38,12 +38,12 @@ public class CLTeam {
         }
     }
 
-    Player getLeader() {
+    public Player getLeader() {
         return this.leader;
     }
 
-    void setLeader(Player member) {
-        if(this.leader.equals(member)) {
+    public void setLeader(Player member) {
+        if(this.leader != null && this.leader.equals(member)) {
             System.out.println(member.getName() + "is already the leader.");
             return;
         }
@@ -55,5 +55,21 @@ public class CLTeam {
         }
 
         this.leader = member;
+    }
+
+    @Override
+    public String toString() {
+        String resutl = "===== " + this.name + " =====\n";
+        String leaderName = "";
+        if(this.getLeader() != null) {
+            leaderName = this.getLeader().getName();
+        }
+        resutl += "Leader: " + leaderName + "\n";
+        resutl += "Members: (" + String.valueOf(this.members.size()) + ")\n";
+        for(Player p: this.getMembers()) {
+            resutl += p.getName() + "\n";
+        }
+
+        return resutl;
     }
 }

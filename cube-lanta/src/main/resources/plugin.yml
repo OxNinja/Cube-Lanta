@@ -11,3 +11,11 @@ commands:
   cl-teams-list:
     description: List all registered teams
     usage: /<command>
+
+  cl-team-show:
+    description: Show information about a specific team
+    usage: /<command> team-name
+
+  cl-team-set-leader:
+    description: Set a player as the leader of a team
+    usage: /<command> team-name new-leader-name
