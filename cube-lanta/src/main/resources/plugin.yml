@@ -2,3 +2,12 @@ name: Cube-Lanta
 main: fr.xninja.cubelanta.CubeLanta
 version: 0.01
 author: 0xNinja
+
+commands:
+  cl-team-create:
+    description: Create a team for Cube Lanta
+    usage: /<command> team_name
+
+  cl-teams-list:
+    description: List all registered teams
+    usage: /<command>

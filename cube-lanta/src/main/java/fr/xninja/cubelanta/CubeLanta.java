@@ -1,17 +1,26 @@
 package fr.xninja.cubelanta;
 
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
+import java.util.HashMap;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.xninja.cubelanta.CLCommands.CLCommandTeamCreate;
+import fr.xninja.cubelanta.CLCommands.CLCommandTeamsList;
+import fr.xninja.cubelanta.CLScoreboard.CLScoreboard;
+
 public final class CubeLanta extends JavaPlugin {
-
-	public static Plugin instance;
-
-	PluginDescriptionFile pdf = this.getDescription();
-
 	@Override
 	public void onEnable() {
+		// Setup scoreboard
+		CLGlobal.scoreboard = new CLScoreboard();
+
+		// Setup teams
+		CLGlobal.teams = new HashMap<String, CLTeam>();
+
+		// Setup commands
+		this.getCommand("cl-team-create").setExecutor(new CLCommandTeamCreate());
+		this.getCommand("cl-teams-list").setExecutor(new CLCommandTeamsList());
+
 		getLogger().info("CubeLanta is loaded!");
 	}
 
