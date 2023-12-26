@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.xninja.cubelanta.CLCommands.CLCommandInventoryAdmin;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamCreate;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetLeader;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetMember;
@@ -26,6 +27,7 @@ public final class CubeLanta extends JavaPlugin {
 		this.getCommand("cl-team-show").setExecutor(new CLCommandTeamShow());
 		this.getCommand("cl-team-set-leader").setExecutor(new CLCommandTeamSetLeader());
 		this.getCommand("cl-team-set-member").setExecutor(new CLCommandTeamSetMember());
+		this.getCommand("cl-inventory-admin").setExecutor(new CLCommandInventoryAdmin());
 
 		getLogger().info("CubeLanta is loaded!");
 	}

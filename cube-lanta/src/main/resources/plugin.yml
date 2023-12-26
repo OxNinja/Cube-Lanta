@@ -23,3 +23,7 @@ commands:
   cl-team-set-member:
     description: Set a player as a member of a team
     usage: /<command> team-name new-member-name
+
+  cl-inventory-admin:
+    description: Use the admin's inventory
+    usage: /<command>
