@@ -1,0 +1,19 @@
+name: Feature request
+description: Ask for a new feature
+title: "My feature is..."
+labels: ["enhancement"]
+projects: ["OxNinja/2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: request
+    attributes:
+      label: What do you want?
+      description: Also tell us, have you though how it would be possible to add this feature?
+      placeholder: Tell us what you want!
+      value: "This new feature!"
+    validations:
+      required: true
