@@ -19,3 +19,7 @@ commands:
   cl-team-set-leader:
     description: Set a player as the leader of a team
     usage: /<command> team-name new-leader-name
+
+  cl-team-set-member:
+    description: Set a player as a member of a team
+    usage: /<command> team-name new-member-name
