@@ -1,8 +1,11 @@
 package fr.xninja.cubelanta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.event.Listener;
 
 import fr.xninja.cubelanta.CLCommands.CLCommandInventoryAdmin;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamCreate;
@@ -10,6 +13,7 @@ import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetLeader;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetMember;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamShow;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamsList;
+import fr.xninja.cubelanta.CLInventories.CLInventoryAdmin;
 import fr.xninja.cubelanta.CLScoreboard.CLScoreboard;
 
 public final class CubeLanta extends JavaPlugin {
@@ -22,12 +26,27 @@ public final class CubeLanta extends JavaPlugin {
 		CLGlobal.teams = new HashMap<String, CLTeam>();
 
 		// Setup commands
-		this.getCommand("cl-team-create").setExecutor(new CLCommandTeamCreate());
-		this.getCommand("cl-teams-list").setExecutor(new CLCommandTeamsList());
-		this.getCommand("cl-team-show").setExecutor(new CLCommandTeamShow());
-		this.getCommand("cl-team-set-leader").setExecutor(new CLCommandTeamSetLeader());
-		this.getCommand("cl-team-set-member").setExecutor(new CLCommandTeamSetMember());
-		this.getCommand("cl-inventory-admin").setExecutor(new CLCommandInventoryAdmin());
+		CLGlobal.commands = new HashMap<String, CommandExecutor>();
+		// TODO: find a better way to do so
+		CLGlobal.commands.put("cl-team-create", new CLCommandTeamCreate());
+		CLGlobal.commands.put("cl-teams-list", new CLCommandTeamsList());
+		CLGlobal.commands.put("cl-team-show", new CLCommandTeamShow());
+		CLGlobal.commands.put("cl-team-set-leader", new CLCommandTeamSetLeader());
+		CLGlobal.commands.put("cl-team-set-member", new CLCommandTeamSetMember());
+		CLGlobal.commands.put("cl-inventory-admin", new CLCommandInventoryAdmin());
+
+		for(String cmd: CLGlobal.commands.keySet()) {
+			getCommand(cmd).setExecutor(CLGlobal.commands.get(cmd));
+		}
+
+		// Register events
+		CLGlobal.listeners = new ArrayList<Listener>();
+		// TODO: find a better way to do so
+		CLGlobal.listeners.add(new CLInventoryAdmin());
+
+		for(Listener listener: CLGlobal.listeners) {
+			getServer().getPluginManager().registerEvents(listener, this);
+		}
 
 		getLogger().info("CubeLanta is loaded!");
 	}

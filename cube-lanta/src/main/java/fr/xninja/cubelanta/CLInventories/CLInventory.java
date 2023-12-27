@@ -4,62 +4,59 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class CLInventory implements Listener {
     public Inventory inventory;
-    public Integer size;
-    public Material fill;
-    public String name;
+    public Integer size = 27;
+    public Material fill = Material.AIR;
+    public String name = "CubeLanta inventory";
 
-    CLInventory(Integer size, Material fill, String name) {
-        this.size = size;
-        this.fill = fill;
-        this.name = name;
-
-        this.inventory = Bukkit.createInventory(null, this.size, this.name);
-        this.initializeItems();
+    public CLInventory() {
+        inventory = Bukkit.createInventory(null, size, name);
+        initializeItems();
     }
 
     public void initializeItems() {
         Integer i;
-        for(i = 0; i<this.size; i++) {
-            this.inventory.setItem(i, new ItemStack(this.fill));
+        for(i = 0; i < size; i++) {
+            inventory.setItem(i, new ItemStack(fill));
         }
     }
 
     public void openInventory(Player player) {
-        player.openInventory(this.inventory);
+        player.openInventory(inventory);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent evt) {
-        // Do nothing if inventory has changed
-        if(!evt.getInventory().equals(this.inventory)) {
+        HumanEntity player = evt.getWhoClicked();
+        ItemStack item = evt.getCurrentItem();
+        Inventory inventory = evt.getClickedInventory();
+        
+        if(inventory == null || inventory.getType() == InventoryType.PLAYER || item == null || !(player instanceof Player)) {
             return;
         }
-
+                        
+        player.closeInventory();
+        Integer slot = evt.getRawSlot();
         evt.setCancelled(true);
 
-        ItemStack clickedItem = evt.getCurrentItem();
-        if(clickedItem == null) {
-            return;
-        }
-
-        Player p = (Player) evt.getWhoClicked();
-        p.sendMessage("You clicked at slot " + evt.getRawSlot());
+        player.sendMessage("Clicked on slot " + slot);
     }
 
     @EventHandler
-    public void onInventoryClick(final InventoryDragEvent evt) {
-        if (evt.getInventory().equals(this.inventory)) {
+    public void onInventoryClick(InventoryDragEvent evt) {
+        if (evt.getInventory().equals(inventory)) {
           evt.setCancelled(true);
         }
     }
