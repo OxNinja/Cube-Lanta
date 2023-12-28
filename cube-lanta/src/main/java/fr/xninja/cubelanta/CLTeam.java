@@ -3,18 +3,20 @@ package fr.xninja.cubelanta;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class CLTeam {
     public String name;
     public List<Player> members;
     public Player leader;
+    public Material material;
     // Base/island
-    // Color
 
     public CLTeam(String name) {
         this.name = name;
         this.members = new ArrayList<Player>();
+        this.material = Material.WHITE_BANNER;
     }
 
     public List<Player> getMembers() {

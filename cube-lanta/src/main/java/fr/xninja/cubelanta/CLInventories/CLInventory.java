@@ -25,6 +25,13 @@ public class CLInventory implements Listener {
         inventory = Bukkit.createInventory(null, size, name);
         initializeItems();
     }
+    
+    public void update() {
+        // TODO: also update on name change
+        if(inventory.getSize() != size) {
+            inventory = Bukkit.createInventory(null, size, name);
+        }        
+    }
 
     public void initializeItems() {
         Integer i;

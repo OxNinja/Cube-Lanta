@@ -13,17 +13,28 @@ import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetLeader;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetMember;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamShow;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamsList;
+import fr.xninja.cubelanta.CLInventories.CLInventory;
 import fr.xninja.cubelanta.CLInventories.CLInventoryAdmin;
+import fr.xninja.cubelanta.CLInventories.CLInventoryAdminTeams;
+import fr.xninja.cubelanta.CLInventories.CLInventoryTeamsList;
 import fr.xninja.cubelanta.CLScoreboard.CLScoreboard;
 
 public final class CubeLanta extends JavaPlugin {
 	@Override
 	public void onEnable() {
+		CLGlobal.plugin = this;
+
 		// Setup scoreboard
 		CLGlobal.scoreboard = new CLScoreboard();
 
 		// Setup teams
 		CLGlobal.teams = new HashMap<String, CLTeam>();
+
+		// Setup inventories
+		CLGlobal.inventories = new HashMap<String, CLInventory>();
+		CLGlobal.inventories.put("admin", new CLInventoryAdmin());
+		CLGlobal.inventories.put("admin-teams", new CLInventoryAdminTeams());
+		CLGlobal.inventories.put("teams-list", new CLInventoryTeamsList());
 
 		// Setup commands
 		CLGlobal.commands = new HashMap<String, CommandExecutor>();
@@ -43,6 +54,7 @@ public final class CubeLanta extends JavaPlugin {
 		CLGlobal.listeners = new ArrayList<Listener>();
 		// TODO: find a better way to do so
 		CLGlobal.listeners.add(new CLInventoryAdmin());
+		CLGlobal.listeners.add(new CLInventoryAdminTeams());
 
 		for(Listener listener: CLGlobal.listeners) {
 			getServer().getPluginManager().registerEvents(listener, this);

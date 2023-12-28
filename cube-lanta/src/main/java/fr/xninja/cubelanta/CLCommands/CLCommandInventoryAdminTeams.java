@@ -7,10 +7,11 @@ import org.bukkit.command.CommandSender;
 
 import fr.xninja.cubelanta.CLGlobal;
 
-public class CLCommandInventoryAdmin implements CommandExecutor {
+public class CLCommandInventoryAdminTeams implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        CLGlobal.inventories.get("admin").openInventory(Bukkit.getPlayer(sender.getName()));
+        CLGlobal.inventories.get("admin-teams").openInventory(Bukkit.getPlayer(sender.getName()));
         return true;
     }
+
 }
