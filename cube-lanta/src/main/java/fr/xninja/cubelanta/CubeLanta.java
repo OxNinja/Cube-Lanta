@@ -3,10 +3,12 @@ package fr.xninja.cubelanta;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.Listener;
 
+import fr.xninja.cubelanta.CLCommands.CLCommandAdmin;
 import fr.xninja.cubelanta.CLCommands.CLCommandInventoryAdmin;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamCreate;
 import fr.xninja.cubelanta.CLCommands.CLCommandTeamSetLeader;
@@ -23,6 +25,7 @@ public final class CubeLanta extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		CLGlobal.plugin = this;
+		CLGlobal.adminItem = CLInventory.createGuiItem(Material.COMPASS, "CubeLanta admin tools", "Right click while holding me");
 
 		// Setup scoreboard
 		CLGlobal.scoreboard = new CLScoreboard();
@@ -45,6 +48,7 @@ public final class CubeLanta extends JavaPlugin {
 		CLGlobal.commands.put("cl-team-set-leader", new CLCommandTeamSetLeader());
 		CLGlobal.commands.put("cl-team-set-member", new CLCommandTeamSetMember());
 		CLGlobal.commands.put("cl-inventory-admin", new CLCommandInventoryAdmin());
+		CLGlobal.commands.put("cl-admin", new CLCommandAdmin());
 
 		for(String cmd: CLGlobal.commands.keySet()) {
 			getCommand(cmd).setExecutor(CLGlobal.commands.get(cmd));
@@ -52,9 +56,14 @@ public final class CubeLanta extends JavaPlugin {
 
 		// Register events
 		CLGlobal.listeners = new ArrayList<Listener>();
+		CLGlobal.listeners.add(new CLListener());
 		// TODO: find a better way to do so
-		CLGlobal.listeners.add(new CLInventoryAdmin());
-		CLGlobal.listeners.add(new CLInventoryAdminTeams());
+		// refacto with only one listener CLInventory
+		// and check on event for inventory name
+		// will be one big function but might be better
+		for(Listener listener: CLGlobal.inventories.values()) {
+			CLGlobal.listeners.add(listener);
+		}
 
 		for(Listener listener: CLGlobal.listeners) {
 			getServer().getPluginManager().registerEvents(listener, this);

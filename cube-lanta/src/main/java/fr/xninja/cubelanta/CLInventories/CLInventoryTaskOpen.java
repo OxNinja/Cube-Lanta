@@ -9,7 +9,7 @@ public class CLInventoryTaskOpen extends BukkitRunnable {
     Inventory inventory;
     HumanEntity player;
 
-    CLInventoryTaskOpen(Inventory inventory, HumanEntity player) {
+    public CLInventoryTaskOpen(Inventory inventory, HumanEntity player) {
         this.inventory = inventory;
         this.player = player;
     }

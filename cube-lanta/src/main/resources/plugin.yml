@@ -5,6 +5,10 @@ author: 0xNinja
 api-version: 1.13
 
 commands:
+  cl-admin:
+    description: Get the admin tools
+    usage: /<command>
+
   cl-team-create:
     description: Create a team for Cube Lanta
     usage: /<command> team_name

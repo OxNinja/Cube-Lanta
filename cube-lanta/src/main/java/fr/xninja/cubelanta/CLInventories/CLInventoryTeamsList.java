@@ -3,9 +3,14 @@ package fr.xninja.cubelanta.CLInventories;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.xninja.cubelanta.CLGlobal;
 import fr.xninja.cubelanta.CLTeam;
@@ -47,7 +52,26 @@ public class CLInventoryTeamsList extends CLInventory {
 
     @Override
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent evt) {              
+    public void onInventoryClick(InventoryClickEvent evt) {
+        HumanEntity player = evt.getWhoClicked();
+        ItemStack item = evt.getCurrentItem();
+        Inventory inventory = evt.getClickedInventory();
+        
+        if(inventory == null || inventory.getType() == InventoryType.PLAYER || item == null || !(player instanceof Player)) {
+            return;
+        }
+
+        if(!evt.getView().getTitle().equals(this.name)) {
+            return;
+        }
+
         evt.setCancelled(true);
+
+        // open team management inventory -> members/leader, delete, customize...
+        String target = item.getItemMeta().getDisplayName();
+        CLInventory targetInventory = CLGlobal.inventories.get("team-manage-" + target);
+        targetInventory.initializeItems();
+        BukkitRunnable task = new CLInventoryTaskOpen(targetInventory.inventory, player);
+        task.runTaskLater(CLGlobal.plugin, 1);
     }
 }

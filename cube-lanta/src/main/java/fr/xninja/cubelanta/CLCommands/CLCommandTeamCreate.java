@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 
 import fr.xninja.cubelanta.CLGlobal;
 import fr.xninja.cubelanta.CLTeam;
+import fr.xninja.cubelanta.CLInventories.CLInventory;
+import fr.xninja.cubelanta.CLInventories.CLInventoryTeamManage;
 
 public class CLCommandTeamCreate implements CommandExecutor {
     @Override
@@ -20,6 +22,11 @@ public class CLCommandTeamCreate implements CommandExecutor {
 
         CLTeam team = new CLTeam(teamName);
         CLGlobal.teams.put(teamName, team);
+
+        CLInventory inventory = new CLInventoryTeamManage(team);
+        CLGlobal.inventories.put("team-manage-" + teamName, inventory);
+        CLGlobal.listeners.add(inventory);
+
         sender.sendMessage("Created the team " + teamName);
         return true;
     }

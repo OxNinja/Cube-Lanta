@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public class CLInventory implements Listener {
     public Inventory inventory;
@@ -74,6 +75,16 @@ public class CLInventory implements Listener {
 
         meta.setDisplayName(name);
         meta.setLore(Arrays.asList(lore));
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack getPlayerHead(Player player) {
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        meta.setOwningPlayer(player);
+        meta.setDisplayName(player.getName());
         item.setItemMeta(meta);
 
         return item;
