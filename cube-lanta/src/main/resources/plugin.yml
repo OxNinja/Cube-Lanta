@@ -2,26 +2,33 @@ name: Cube-Lanta
 main: fr.xninja.cubelanta.CubeLanta
 version: 0.01
 author: 0xNinja
+api-version: 1.13
 
 commands:
-  #to remove
-  changeteam:
-    description: aze
-    usage: /<command> <team>
+  cl-admin:
+    description: Get the admin tools
+    usage: /<command>
 
-  # Cube-Lanta commands
-  setinterview:
-    description: Set the interviews' location at your actual location, and set interviewed's location with x y and z
-    usage: /<command> x y z
+  cl-team-create:
+    description: Create a team for Cube Lanta
+    usage: /<command> team_name
 
-  interview:
-    description: Schedule an interview with a player in <minutes> minutes or stop a running interview
-    usage: /<command> start <player> <minutes> | /command stop
+  cl-teams-list:
+    description: List all registered teams
+    usage: /<command>
 
-  setup:
-    description: Setup the Cube-Lanta experience
-    usage: /<command> <yellow team name> <red team name> <white team name>
-    
-  role:
-    description: Get a player's role
+  cl-team-show:
+    description: Show information about a specific team
+    usage: /<command> team-name
+
+  cl-team-set-leader:
+    description: Set a player as the leader of a team
+    usage: /<command> team-name new-leader-name
+
+  cl-team-set-member:
+    description: Set a player as a member of a team
+    usage: /<command> team-name new-member-name
+
+  cl-inventory-admin:
+    description: Use the admin's inventory
     usage: /<command>

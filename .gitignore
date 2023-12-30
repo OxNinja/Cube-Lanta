@@ -1,2 +1,4 @@
 .vscode
 cube-lanta/target
+*.jar
+*.code-workspace
