@@ -1,6 +1,6 @@
 name: Bug Report
 description: File a bug report
-title: "M"
+title: "🐛 Short bug description"
 labels: ["bug"]
 projects: ["OxNinja/2"]
 body:
