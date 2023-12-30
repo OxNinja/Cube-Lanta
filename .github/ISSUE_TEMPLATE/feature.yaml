@@ -1,6 +1,6 @@
 name: Feature request
 description: Ask for a new feature
-title: "My feature is..."
+title: "✨ Short feature description"
 labels: ["enhancement"]
 projects: ["OxNinja/2"]
 body:
